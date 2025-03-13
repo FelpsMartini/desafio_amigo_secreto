@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorteador de Nomes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .background {
+            display: flex;
+            width: 100%;
+            height: 100vh;
+        }
+        .left {
+            flex: 1;
+            background-color: #F5F5DC;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .right {
+            flex: 1;
+            background-color: #ADD8E6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .input-container {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            max-width: 350px;
+            border-radius: 25px;
+            overflow: hidden;
+            background: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        input {
+            padding: 12px;
+            font-size: 16px;
+            flex: 1;
+            border: none;
+            outline: none;
+        }
+        button {
+            margin: 10px;
+            padding: 12px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 25px;
+            background-color: #ff6600;
+            color: white;
+            transition: 0.3s;
+        }
+        button:hover {
+            background-color: #cc5500;
+        }
+        .sortear-btn {
+            width: 100%;
+            max-width: 350px;
+            border-radius: 25px;
+            background-color: #007BFF;
+        }
+        .sortear-btn:hover {
+            background-color: #0056b3;
+        }
+        .image-container {
+            position: absolute;
+            width: 70%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="background">
+        <div class="left">
+            <div class="container">
+                <h1>Sorteador de Nomes</h1>
+                <div class="input-container">
+                    <input type="text" id="nome" placeholder="Digite um nome">
+                    <button onclick="adicionarNome()">Adicionar</button>
+                </div>
+                <button class="sortear-btn" onclick="sortearNome()">Sortear Nome</button>
+                <ul id="listaNomes"></ul>
+                <h2 id="resultado"></h2>
+            </div>
+        </div>
+        <div class="right">
+            <img class="image-container" src="img.jpg" alt="Imagem Sorteador">
+        </div>
+    </div>
+
+    <script>
+        let nomes = [];
+        
+        function adicionarNome() {
+            const nomeInput = document.getElementById('nome');
+            const nome = nomeInput.value.trim();
+            if (nome) {
+                nomes.push(nome);
+                atualizarLista();
+                nomeInput.value = '';
+            } else {
+                alert('O nome não pode estar em branco.');
+            }
+        }
+
+        function atualizarLista() {
+            const lista = document.getElementById('listaNomes');
+            lista.innerHTML = nomes.map(nome => `<li>${nome}</li>`).join('');
+        }
+
+        function sortearNome() {
+            if (nomes.length > 0) {
+                const indiceSorteado = Math.floor(Math.random() * nomes.length);
+                document.getElementById('resultado').textContent = `Nome sorteado: ${nomes[indiceSorteado]}`;
+            } else {
+                alert('Adicione pelo menos um nome antes de sortear.');
+            }
+        }
+    </script>
+</body>
+</html>
